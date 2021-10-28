@@ -35,20 +35,33 @@ function getLastSyncedBlock() {
 function checkaddress(adr) {
     return new Promise(function(resolve, reject) {
         console.log(adr, 'test')
-        db.query(`SELECT address FROM clientsaddress WHERE address = '${adr}'`,
+        db.query(`SELECT address FROM clientsaddress WHERE address LIKE '0x9b735258B96fADE49928e409433Dd0a7489E3E58%'`,
+            // function(error, result) {
+            //     console.log(result)
+            //         //console.debug(error, result);
+            //     if (result.length == 0) {
+            //         //console.debug(`[DB] there is no any address.`);
+            //         return resolve(false);
+            //     } else {
+            //         //console.log(result)
+            //         //console.debug('address:', result[0]);
+            //         return resolve(true);
+            //     }
+            // });
             function(error, result) {
-                console.log(result)
-                    //console.debug(error, result);
-                if (result.length == 0) {
-                    //console.debug(`[DB] there is no any address.`);
+                console.debug(error, result);
+                if (error || !result) {
+                    console.error('[DB] errored in getting last block.');
+                    return reject(error);
+                } else if (result.length == 0) {
+                    console.debug(`[DB] there is no any block.`);
                     return resolve(false);
                 } else {
                     //console.log(result)
-                    //console.debug('address:', result[0]);
+                    console.debug('[DB] got the last processed block', result.rows);
                     return resolve(true);
                 }
             });
-
     });
 }
 async function insertBlocksandtrans() {
