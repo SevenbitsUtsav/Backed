@@ -80,7 +80,7 @@ async function insertBlocksandtrans() {
                 //console.log(tx)
 
                 var account = await checkaddress(tx.to)
-                if (account = true) {
+                if (account) {
                     console.log(`Transaction found on block ${ number }`);
                     console.log(`Address is ${ tx.to }`);
                     console.log('value is ', web3.utils.fromWei(tx.value, 'ether'), ' Ether'),
