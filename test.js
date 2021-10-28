@@ -25,13 +25,13 @@ function getLastSyncedBlock() {
                     return resolve(0);
                 } else {
                     console.log(result)
-                    console.debug('[DB] got the last processed block', result[0].number);
-                    return resolve(result[0].number);
+                    console.debug('[DB] got the last processed block', result.rows);
+                    return resolve(result.rows);
                 }
             });
     });
 };
-//getLastSyncedBlock()
+
 
 
 function checkaddress(adr) {
@@ -55,8 +55,10 @@ function checkaddress(adr) {
 }
 async function insertBlocksandtrans() {
     try {
-        var x = 27794900 //await getLastSyncedBlock();
-        const b = 27794904 //await web3.eth.getBlockNumber()
+        var a = await getLastSyncedBlock();
+        const x = a[0].number; //27794900 //2800812
+        console.log(x)
+        var b = await web3.eth.getBlockNumber() //27794904
         console.log('letest block number ', b)
         for (let i = x; i < b; i++) {
             console.log('\x1b[36m%s\x1b[0m', "This si the block running " + i);
