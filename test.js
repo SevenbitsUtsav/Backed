@@ -35,7 +35,7 @@ function getLastSyncedBlock() {
 function checkaddress(adr) {
     return new Promise(function(resolve, reject) {
         console.log(adr, 'test')
-        db.query(`SELECT address FROM clientsaddress WHERE address LIKE '0x9b735258B96fADE49928e409433Dd0a7489E3E58%'`,
+        db.query(`SELECT address FROM clientsaddress WHERE address = '${adr}'`,
             // function(error, result) {
             //     console.log(result)
             //         //console.debug(error, result);
