@@ -56,13 +56,15 @@ function checkaddress(adr) {
 async function insertBlocksandtrans() {
     try {
         var a = await getLastSyncedBlock();
-        const x = a[0].number; //27794900 //2800812
-        console.log(x)
-        var b = await web3.eth.getBlockNumber() //27794904
-        console.log('letest block number ', b)
-        for (let i = x; i < b; i++) {
+        const LastBlockDB = a[0].number + 1; //27794900 //2800812
+        console.log(LastBlockDB)
+        var LatestBlock = await web3.eth.getBlockNumber() //27794904
+        console.log('letest block number ', LatestBlock)
+        for (let i = LastBlockDB; i < LatestBlock; i++) {
             console.log('\x1b[36m%s\x1b[0m', "This si the block running " + i);
             let block = await web3.eth.getBlock(i);
+            //Get hash from the existing data in database. Also check previous hash.
+            //Insert new block with process 0
             let number = block.number
                 //console.log(block)
                 // console.log('serching block ' + number);
